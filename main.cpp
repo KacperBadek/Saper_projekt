@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Pole.h"
 #include "Trudnosc.h"
+#include <random>
 
 using namespace std;
 
@@ -53,6 +54,19 @@ void menu(Trudnosc &tryb){
     }
 }
 
+void generacja_planszy(int x, int y, Pole **plansza){
+    for(int i = 0; i < y; i++){
+        for(int j = 0; j < x; j++){
+            plansza[j][i].set_wartosc(0);
+            plansza[j][i].set_odkryte(false);
+        }
+    }
+}
+
+void generacja_min(int x, int y, int ilosc_min, Pole **plansza){
+
+}
+
 int main() {
 Trudnosc tryb;
 menu(tryb);
@@ -62,6 +76,9 @@ plansza = new Pole *[tryb.get_x()];
 for(int i=0; i<tryb.get_x(); i++){
     plansza[i] = new Pole[tryb.get_y()];
 }
+
+generacja_planszy(tryb.get_x(), tryb.get_y(), plansza);
+generacja_min(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_min(), plansza);
 
     return 0;
 }
