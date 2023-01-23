@@ -3,4 +3,4 @@ project(Saper_projekt)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Saper_projekt main.cpp)
+add_executable(Saper_projekt main.cpp Trudnosc.cpp Trudnosc.h Pole.cpp Pole.h)
