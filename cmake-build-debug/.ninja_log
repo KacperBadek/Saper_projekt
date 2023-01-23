@@ -1,3 +1,7 @@
 # ninja log v5
 1	647	6961280665251704	CMakeFiles/Saper_projekt.dir/main.cpp.obj	22ee0217faf0c372
 650	797	6961280666683371	Saper_projekt.exe	f439f8446ef2c43
+32	474	6962089037559237	CMakeFiles/Saper_projekt.dir/Pole.cpp.obj	a0f66cfaac04385
+54	475	6962089037559237	CMakeFiles/Saper_projekt.dir/Trudnosc.cpp.obj	4d5568ab14822b95
+5	821	6962089041023679	CMakeFiles/Saper_projekt.dir/main.cpp.obj	22ee0217faf0c372
+821	1039	6962089043125150	Saper_projekt.exe	5972002d6a8f1393

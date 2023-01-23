@@ -7,9 +7,9 @@
 
 
 class Trudnosc {
-public:
+private:
     int x, y, ilosc_min, ilosc_flag;
-
+public:
     Trudnosc();
 
     void set_x(int);
