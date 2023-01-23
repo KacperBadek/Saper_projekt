@@ -1,1 +1,2 @@
-# Saper_projekt
+# Saper (programowanie)
+Kacper Badek
