@@ -63,8 +63,27 @@ void generacja_planszy(int x, int y, Pole **plansza){
     }
 }
 
-void generacja_min(int x, int y, int ilosc_min, Pole **plansza){
+void ustaw_miny(int x, int y, int poz_x, int poz_y, Pole **plansza){
 
+}
+
+void generacja_min(int x, int y, int ilosc_min, Pole **plansza){
+    int licznik=0, poz_x, poz_y;
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<> distx(0,x-1);
+    uniform_int_distribution<> disty(0,y-1);
+
+
+    while(licznik < ilosc_min){
+        poz_x = distx(gen);
+        poz_y = disty(gen);
+
+        if(!plansza[poz_x][poz_y].get_mina()){
+            ustaw_miny(x, y, poz_x, poz_y, plansza);
+            licznik++;
+        }
+    }
 }
 
 int main() {
