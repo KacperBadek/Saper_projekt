@@ -40,6 +40,7 @@ void menu(Trudnosc &tryb){
 
     cout << "Twoj wybor: ";
     cin >> opcja;
+    system("cls");
 
     switch (opcja) {
         case 1: wybor_trudnosci(tryb);
@@ -64,7 +65,20 @@ void generacja_planszy(int x, int y, Pole **plansza){
 }
 
 void ustaw_miny(int x, int y, int poz_x, int poz_y, Pole **plansza){
+    if(!plansza[poz_x][poz_y].get_mina()) {
+        plansza[poz_x][poz_y].set_mina(true);
 
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j < 2; j++) {
+
+                if (poz_x + j < 0 || poz_y + i < 0) continue;
+                if (poz_x + j > x-1 || poz_y + i > y-1) continue;
+                if (plansza[poz_x + j][poz_y + i].get_mina()) continue;
+
+                plansza[poz_x + j][poz_y + i].set_wartosc(plansza[poz_x + j][poz_y + i].get_wartosc() + 1);
+            }
+        }
+    }
 }
 
 void generacja_min(int x, int y, int ilosc_min, Pole **plansza){
@@ -97,7 +111,12 @@ for(int i=0; i<tryb.get_x(); i++){
 }
 
 generacja_planszy(tryb.get_x(), tryb.get_y(), plansza);
+cout << "Generacja plaszy..." << endl;
+system("pause");
+
 generacja_min(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_min(), plansza);
+cout << "Generacja min..." << endl;
+system("pause");
 
     return 0;
 }
