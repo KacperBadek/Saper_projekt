@@ -65,7 +65,7 @@ void generacja_planszy(int x, int y, Pole **plansza){
 }
 
 void ustaw_miny(int x, int y, int poz_x, int poz_y, Pole **plansza){
-    if(!plansza[poz_x][poz_y].get_mina()) {
+    if(!plansza[poz_x][poz_y].czy_mina()) {
         plansza[poz_x][poz_y].set_mina(true);
 
         for (int i = -1; i < 2; i++) {
@@ -73,7 +73,7 @@ void ustaw_miny(int x, int y, int poz_x, int poz_y, Pole **plansza){
 
                 if (poz_x + j < 0 || poz_y + i < 0) continue;
                 if (poz_x + j > x-1 || poz_y + i > y-1) continue;
-                if (plansza[poz_x + j][poz_y + i].get_mina()) continue;
+                if (plansza[poz_x + j][poz_y + i].czy_mina()) continue;
 
                 plansza[poz_x + j][poz_y + i].set_wartosc(plansza[poz_x + j][poz_y + i].get_wartosc() + 1);
             }
@@ -93,11 +93,54 @@ void generacja_min(int x, int y, int ilosc_min, Pole **plansza){
         poz_x = distx(gen);
         poz_y = disty(gen);
 
-        if(!plansza[poz_x][poz_y].get_mina()){
+        if(!plansza[poz_x][poz_y].czy_mina()){
             ustaw_miny(x, y, poz_x, poz_y, plansza);
             licznik++;
         }
     }
+}
+
+void rysuj_plansze(int x, int y, int flagi, Pole **p){
+    system("cls");
+
+//! Os X
+    for(int i = 0; i < x; i++){
+        if(i == 0) cout << "   ";
+         cout << i+1;
+    }
+    cout << endl;
+
+    //! Os Y
+    for(int i = 0; i < y; i++){
+        for(int j = 0; j < x; j++){
+
+            if(j == 0){
+                cout << i+1;
+                if(i < 9) cout << "  ";
+                else cout << " ";
+            }
+
+            if(p[j][i].czy_odkryte()){
+                if(p[j][i].get_wartosc() == 0){
+                    if(p[j][i].czy_mina()) cout << "*";
+                    else cout << " ";
+                }
+                else{
+                    if(p[j][i].czy_mina()) cout << "*";
+                    else cout << p[j][i].get_wartosc();
+                }
+            }
+            if(!p[j][i].czy_odkryte()){
+                if(p[j][i].czy_flaga()) cout << "F";
+                    // else if(p[j][i].mina) cout << "*"; //!testowanie
+                else cout << "#"; //(char)254u
+            }
+        }
+        cout << endl;
+    }
+
+    cout << "Flagi: " << flagi << endl;
+    cout << endl;
 }
 
 int main() {
@@ -117,6 +160,9 @@ system("pause");
 generacja_min(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_min(), plansza);
 cout << "Generacja min..." << endl;
 system("pause");
+
+rysuj_plansze(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_flag(), plansza);
+    system("pause");
 
     return 0;
 }

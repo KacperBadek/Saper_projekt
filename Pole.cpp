@@ -31,14 +31,14 @@ int Pole::get_wartosc() {
     return this->wartosc;
 }
 
-bool Pole::get_odkryte() {
+bool Pole::czy_odkryte() {
     return this->odkryte;
 }
 
-bool Pole::get_flaga() {
+bool Pole::czy_flaga() {
     return this->flaga;
 }
 
-bool Pole::get_mina() {
+bool Pole::czy_mina() {
     return this->mina;
 }

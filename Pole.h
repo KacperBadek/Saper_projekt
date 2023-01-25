@@ -21,9 +21,9 @@ public:
     void set_mina(bool);
 
     int get_wartosc();
-    bool get_odkryte();
-    bool get_flaga();
-    bool get_mina();
+    bool czy_odkryte();
+    bool czy_flaga();
+    bool czy_mina();
 
 };
 
