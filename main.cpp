@@ -100,7 +100,7 @@ void generacja_min(int x, int y, int ilosc_min, Pole **plansza){
     }
 }
 
-void rysuj_plansze(int x, int y, int flagi, Pole **p){
+void rysuj_plansze(int x, int y, int flagi, Pole **plansza){
     system("cls");
 
 //! Os X
@@ -120,18 +120,18 @@ void rysuj_plansze(int x, int y, int flagi, Pole **p){
                 else cout << " ";
             }
 
-            if(p[j][i].czy_odkryte()){
-                if(p[j][i].get_wartosc() == 0){
-                    if(p[j][i].czy_mina()) cout << "*";
+            if(plansza[j][i].czy_odkryte()){
+                if(plansza[j][i].get_wartosc() == 0){
+                    if(plansza[j][i].czy_mina()) cout << "*";
                     else cout << " ";
                 }
                 else{
-                    if(p[j][i].czy_mina()) cout << "*";
-                    else cout << p[j][i].get_wartosc();
+                    if(plansza[j][i].czy_mina()) cout << "*";
+                    else cout << plansza[j][i].get_wartosc();
                 }
             }
-            if(!p[j][i].czy_odkryte()){
-                if(p[j][i].czy_flaga()) cout << "F";
+            if(!plansza[j][i].czy_odkryte()){
+                if(plansza[j][i].czy_flaga()) cout << "F";
                     // else if(p[j][i].mina) cout << "*"; //!testowanie
                 else cout << "#"; //(char)254u
             }
@@ -141,6 +141,31 @@ void rysuj_plansze(int x, int y, int flagi, Pole **p){
 
     cout << "Flagi: " << flagi << endl;
     cout << endl;
+}
+
+void sterowanie(int x, int y, int flagi, Pole **plansza){
+    int wybor, poz_x, poz_y;
+    cout << "Co chcesz zrobic?" << endl;
+    cout << "1. Odkryj pole" << endl;
+    cout << "2. Ustaw flage" << endl;
+    cout << "3. Usun flage" << endl;
+    cout << "Twoj wybor: ";
+    cin >> wybor;
+
+    if(wybor < 1 || wybor > 3){
+        cout << endl;
+        cout << "Brak podanej opcji!" << endl;
+        sterowanie(x, y, flagi, plansza);
+    }
+    cout << endl;
+
+    cout << "Podaj x: ";
+    cin >> poz_x;
+    poz_x -= 1;
+    cout << "Podaj y: ";
+    cin >> poz_y;
+    poz_y -= 1;
+
 }
 
 int main() {
@@ -154,14 +179,9 @@ for(int i=0; i<tryb.get_x(); i++){
 }
 
 generacja_planszy(tryb.get_x(), tryb.get_y(), plansza);
-cout << "Generacja plaszy..." << endl;
-system("pause");
-
 generacja_min(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_min(), plansza);
-cout << "Generacja min..." << endl;
-system("pause");
-
 rysuj_plansze(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_flag(), plansza);
+sterowanie(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_flag(), plansza);
     system("pause");
 
     return 0;
