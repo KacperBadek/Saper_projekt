@@ -143,6 +143,58 @@ void rysuj_plansze(int x, int y, int flagi, Pole **plansza){
     cout << endl;
 }
 
+void odkryj_pole(){
+
+}
+
+void odkryj_miny(int x, int y, int flagi, Pole **plansza){
+    for(int i = 0; i < y; i++){
+        for(int j = 0; j < x; j++){
+            if(plansza[j][i].czy_mina()){
+                plansza[j][i].set_odkryte(true);
+                rysuj_plansze(x, y, flagi, plansza);
+            }
+        }
+    }
+}
+
+void sterowanie_akcja(int wybor, int x, int y, int poz_x, int poz_y, int flagi, Pole **plansza){
+    switch(wybor){
+        case 1: {
+            if(plansza[poz_x][poz_y].czy_mina()){
+                odkryj_miny(x, y, flagi, plansza);
+                cout << "Trafiles na mine, przegrales!!!" << endl;
+                system("pause");
+                free(*plansza);
+                free(plansza);
+                exit(0);
+            }
+            else odkryj_pole();
+        }
+            break;
+        case 2:{
+            if(flagi > 0){
+                if(!plansza[poz_x][poz_y].czy_odkryte()){
+                    if(!plansza[poz_x][poz_y].czy_flaga()){
+                        plansza[poz_x][poz_y].set_flaga(true);
+                        flagi--;
+                    }
+                }
+            }
+        }
+            break;
+        case 3:{
+            if(plansza[poz_x-1][poz_y-1].czy_flaga()){
+                plansza[poz_x-1][poz_y-1].set_flaga(false);
+                flagi++;
+            }
+        }
+            break;
+        default: cout << "Brak wybranej opcji!" << endl;
+
+    }
+}
+
 void sterowanie(int x, int y, int flagi, Pole **plansza){
     int wybor, poz_x, poz_y;
     cout << "Co chcesz zrobic?" << endl;
@@ -166,6 +218,7 @@ void sterowanie(int x, int y, int flagi, Pole **plansza){
     cin >> poz_y;
     poz_y -= 1;
 
+    sterowanie_akcja(wybor, x, y, poz_x, poz_y, flagi, plansza);
 }
 
 int main() {
