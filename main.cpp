@@ -132,7 +132,7 @@ void rysuj_plansze(int x, int y, int flagi, Pole **plansza){
             }
             if(!plansza[j][i].czy_odkryte()){
                 if(plansza[j][i].czy_flaga()) cout << "F";
-                    // else if(p[j][i].mina) cout << "*"; //!testowanie
+                else if(plansza[j][i].czy_mina()) cout << "*"; //!testowanie
                 else cout << "#"; //(char)254u
             }
         }
@@ -143,7 +143,26 @@ void rysuj_plansze(int x, int y, int flagi, Pole **plansza){
     cout << endl;
 }
 
-void odkryj_pole(){
+void odkryj_pole(int x, int y, int poz_x, int poz_y, Pole **plansza){
+    if(poz_x < 0 || poz_x > x-1) return;
+    if(poz_y < 0 || poz_y > y-1) return;
+    if(plansza[poz_x][poz_y].czy_odkryte()) return;
+
+    if(!plansza[poz_x][poz_y].czy_odkryte() && !plansza[poz_x][poz_y].czy_mina()){
+        plansza[poz_x][poz_y].set_odkryte(true);
+    }
+
+    if(plansza[poz_x][poz_y].get_wartosc() != 0) return;
+
+    odkryj_pole(x, y, poz_x-1, poz_y-1, plansza);
+    odkryj_pole(x, y, poz_x-1, poz_y, plansza);
+    odkryj_pole(x, y, poz_x-1, poz_y+1, plansza);
+    odkryj_pole(x, y, poz_x+1, poz_y-1, plansza);
+    odkryj_pole(x, y, poz_x+1, poz_y, plansza);
+    odkryj_pole(x, y, poz_x+1, poz_y+1, plansza);
+    odkryj_pole(x, y, poz_x, poz_y-1, plansza);
+    odkryj_pole(x, y, poz_x, poz_y, plansza);
+    odkryj_pole(x, y, poz_x, poz_y+1, plansza);
 
 }
 
@@ -169,7 +188,7 @@ void sterowanie_akcja(int wybor, int x, int y, int poz_x, int poz_y, int flagi, 
                 free(plansza);
                 exit(0);
             }
-            else odkryj_pole();
+            else odkryj_pole(x, y ,poz_x, poz_y, plansza);
         }
             break;
         case 2:{
@@ -234,7 +253,11 @@ for(int i=0; i<tryb.get_x(); i++){
 generacja_planszy(tryb.get_x(), tryb.get_y(), plansza);
 generacja_min(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_min(), plansza);
 rysuj_plansze(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_flag(), plansza);
-sterowanie(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_flag(), plansza);
+while(true){
+    sterowanie(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_flag(), plansza);
+    rysuj_plansze(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_flag(), plansza);
+}
+
     system("pause");
 
     return 0;
