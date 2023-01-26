@@ -161,7 +161,6 @@ void odkryj_pole(int x, int y, int poz_x, int poz_y, Pole **plansza){
     odkryj_pole(x, y, poz_x+1, poz_y, plansza);
     odkryj_pole(x, y, poz_x+1, poz_y+1, plansza);
     odkryj_pole(x, y, poz_x, poz_y-1, plansza);
-    odkryj_pole(x, y, poz_x, poz_y, plansza);
     odkryj_pole(x, y, poz_x, poz_y+1, plansza);
 
 }
@@ -240,6 +239,25 @@ void sterowanie(int x, int y, int flagi, Trudnosc &tryb, Pole **plansza){
     sterowanie_akcja(wybor, x, y, poz_x, poz_y, flagi, tryb, plansza);
 }
 
+bool czy_wygrana(int x, int y, int ilosc_min, Pole **plansza){
+    int wszystkie_pola = x * y;
+    int pola_odkryte=0;
+
+    for(int i = 0; i < y; i++){
+        for(int j = 0 ; j < x; j++){
+            if(plansza[j][i].czy_odkryte()){
+                pola_odkryte++;
+            }
+        }
+    }
+
+    if(pola_odkryte == (wszystkie_pola - ilosc_min)){
+        cout << "Gratulacje wygrales!!!" << endl;
+        return true;
+    }
+    return false;
+}
+
 int main() {
 Trudnosc tryb;
 menu(tryb);
@@ -253,12 +271,16 @@ for(int i=0; i<tryb.get_x(); i++){
 generacja_planszy(tryb.get_x(), tryb.get_y(), plansza);
 generacja_min(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_min(), plansza);
 rysuj_plansze(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_flag(), plansza);
-while(true){
+czy_wygrana(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_min(), plansza);
+
+while(!czy_wygrana(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_min(), plansza)){
     sterowanie(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_flag(), tryb, plansza);
     rysuj_plansze(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_flag(), plansza);
 }
 
     system("pause");
+    free(*plansza);
+    free(plansza);
+    exit(0);
 
-    return 0;
 }
