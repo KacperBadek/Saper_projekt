@@ -177,7 +177,7 @@ void odkryj_miny(int x, int y, int flagi, Pole **plansza){
     }
 }
 
-void sterowanie_akcja(int wybor, int x, int y, int poz_x, int poz_y, int flagi, Pole **plansza){
+void sterowanie_akcja(int wybor, int x, int y, int poz_x, int poz_y, int flagi, Trudnosc &tryb, Pole **plansza){
     switch(wybor){
         case 1: {
             if(plansza[poz_x][poz_y].czy_mina()){
@@ -196,16 +196,16 @@ void sterowanie_akcja(int wybor, int x, int y, int poz_x, int poz_y, int flagi, 
                 if(!plansza[poz_x][poz_y].czy_odkryte()){
                     if(!plansza[poz_x][poz_y].czy_flaga()){
                         plansza[poz_x][poz_y].set_flaga(true);
-                        flagi--;
+                        tryb.set_ilosc_flag(flagi - 1);
                     }
                 }
             }
         }
             break;
         case 3:{
-            if(plansza[poz_x-1][poz_y-1].czy_flaga()){
-                plansza[poz_x-1][poz_y-1].set_flaga(false);
-                flagi++;
+            if(plansza[poz_x][poz_y].czy_flaga()){
+                plansza[poz_x][poz_y].set_flaga(false);
+                tryb.set_ilosc_flag(flagi + 1);
             }
         }
             break;
@@ -214,7 +214,7 @@ void sterowanie_akcja(int wybor, int x, int y, int poz_x, int poz_y, int flagi, 
     }
 }
 
-void sterowanie(int x, int y, int flagi, Pole **plansza){
+void sterowanie(int x, int y, int flagi, Trudnosc &tryb, Pole **plansza){
     int wybor, poz_x, poz_y;
     cout << "Co chcesz zrobic?" << endl;
     cout << "1. Odkryj pole" << endl;
@@ -226,7 +226,7 @@ void sterowanie(int x, int y, int flagi, Pole **plansza){
     if(wybor < 1 || wybor > 3){
         cout << endl;
         cout << "Brak podanej opcji!" << endl;
-        sterowanie(x, y, flagi, plansza);
+        sterowanie(x, y, flagi,tryb, plansza);
     }
     cout << endl;
 
@@ -237,7 +237,7 @@ void sterowanie(int x, int y, int flagi, Pole **plansza){
     cin >> poz_y;
     poz_y -= 1;
 
-    sterowanie_akcja(wybor, x, y, poz_x, poz_y, flagi, plansza);
+    sterowanie_akcja(wybor, x, y, poz_x, poz_y, flagi, tryb, plansza);
 }
 
 int main() {
@@ -254,7 +254,7 @@ generacja_planszy(tryb.get_x(), tryb.get_y(), plansza);
 generacja_min(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_min(), plansza);
 rysuj_plansze(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_flag(), plansza);
 while(true){
-    sterowanie(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_flag(), plansza);
+    sterowanie(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_flag(), tryb, plansza);
     rysuj_plansze(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_flag(), plansza);
 }
 
