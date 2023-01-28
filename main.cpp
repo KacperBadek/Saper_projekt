@@ -106,7 +106,14 @@ void rysuj_plansze(int x, int y, int flagi, Pole **plansza){
 //! Os X
     for(int i = 0; i < x; i++){
         if(i == 0) cout << "   ";
-         cout << i+1;
+        if(i < 9) cout << " " << i+1 << "  ";
+        else cout << " " << i+1 << " ";
+    }
+    cout << endl;
+
+    for(int i = 0; i < x; i++){
+        if(i == 0) cout << "   ";
+        cout << "---" << " ";
     }
     cout << endl;
 
@@ -116,8 +123,8 @@ void rysuj_plansze(int x, int y, int flagi, Pole **plansza){
 
             if(j == 0){
                 cout << i+1;
-                if(i < 9) cout << "  ";
-                else cout << " ";
+                if(i < 9) cout << " | ";
+                else cout << "| ";
             }
 
             if(plansza[j][i].czy_odkryte()){
@@ -132,9 +139,17 @@ void rysuj_plansze(int x, int y, int flagi, Pole **plansza){
             }
             if(!plansza[j][i].czy_odkryte()){
                 if(plansza[j][i].czy_flaga()) cout << "F";
-                else if(plansza[j][i].czy_mina()) cout << "*"; //!testowanie
-                else cout << "#"; //(char)254u
+                //else if(plansza[j][i].czy_mina()) cout << "*"; //!testowanie
+                else cout << (char)254u; //"#"
             }
+
+            cout << " | ";
+
+        }
+        cout << endl;
+        for(int i = 0; i < x; i++){
+            if(i == 0) cout << "   ";
+            cout << "---" << " ";
         }
         cout << endl;
     }
