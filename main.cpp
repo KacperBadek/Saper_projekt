@@ -30,12 +30,25 @@ void wybor_trudnosci(Trudnosc &tryb){
 
 }
 
+void zasady_gry(){
+    system("cls");
+    cout << "Gra polega na odkrywaniu na planszy poszczegolnych pol w taki sposob, aby nie natrafic na mine." << "\n";
+    cout << "Na kazdym z odkrytych pol napisana jest liczba min, ktore bezposrednio stykaja sie z danym polem." << "\n";
+    cout << "Jesli min jest zero to na polu nie ma wpisanej liczby." << "\n";
+    cout << "Nalezy uzywac tych liczb by wydedukowac gdzie schowane sa miny." << "\n";
+    cout << "Jesli oznaczymy dane pole flaga, jest ono zabezpieczone przed odslonieciem, dzieki czemu nie odslonimy miny." << "\n";
+    cout << "Aby wygrac nalezy odslonic wszystkie pola ktore nie chowaja miny pod spodem." << "\n";
+    cout << "\n";
+    system("pause");
+}
+
 void menu(Trudnosc &tryb){
     int opcja;
     cout << "MENU" << endl;
 
     cout << "1.Graj" << endl;
-    cout << "2.Wyjdz" << endl;
+    cout << "2.Zasady gry" << endl;
+    cout << "3.Wyjdz" << endl;
     cout << endl;
 
     cout << "Twoj wybor: ";
@@ -45,7 +58,11 @@ void menu(Trudnosc &tryb){
     switch (opcja) {
         case 1: wybor_trudnosci(tryb);
             break;
-        case 2: cout << "Shutting down" << endl;
+        case 2: zasady_gry();
+        system("cls");
+            menu(tryb);
+            break;
+        case 3: cout << "Shutting down" << endl;
             system("pause");
             exit(0);
 
@@ -140,7 +157,7 @@ void rysuj_plansze(int x, int y, int flagi, Pole **plansza){
             if(!plansza[j][i].czy_odkryte()){
                 if(plansza[j][i].czy_flaga()) cout << "F";
                 //else if(plansza[j][i].czy_mina()) cout << "*"; //!testowanie
-                else cout << (char)254u; //"#"
+                else cout << (char)254u;
             }
 
             cout << " | ";
