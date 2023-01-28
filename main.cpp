@@ -2,6 +2,7 @@
 #include "Pole.h"
 #include "Trudnosc.h"
 #include <random>
+#include <windows.h>
 
 using namespace std;
 
@@ -119,6 +120,7 @@ void generacja_min(int x, int y, int ilosc_min, Pole **plansza){
 
 void rysuj_plansze(int x, int y, int flagi, Pole **plansza){
     system("cls");
+    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
 
 //! Os X
     for(int i = 0; i < x; i++){
@@ -146,16 +148,28 @@ void rysuj_plansze(int x, int y, int flagi, Pole **plansza){
 
             if(plansza[j][i].czy_odkryte()){
                 if(plansza[j][i].get_wartosc() == 0){
-                    if(plansza[j][i].czy_mina()) cout << "*";
+                    if(plansza[j][i].czy_mina()){
+                        SetConsoleTextAttribute(h, 4);
+                        cout << "*";
+                        SetConsoleTextAttribute(h, 7);
+                    }
                     else cout << " ";
                 }
                 else{
-                    if(plansza[j][i].czy_mina()) cout << "*";
+                    if(plansza[j][i].czy_mina()){
+                        SetConsoleTextAttribute(h, 4);
+                        cout << "*";
+                        SetConsoleTextAttribute(h, 7);
+                    }
                     else cout << plansza[j][i].get_wartosc();
                 }
             }
             if(!plansza[j][i].czy_odkryte()){
-                if(plansza[j][i].czy_flaga()) cout << "F";
+                if(plansza[j][i].czy_flaga()){
+                    SetConsoleTextAttribute(h, 2);
+                    cout << "F";
+                    SetConsoleTextAttribute(h, 7);
+                }
                 //else if(plansza[j][i].czy_mina()) cout << "*"; //!testowanie
                 else cout << (char)254u;
             }
