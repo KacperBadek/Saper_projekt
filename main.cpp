@@ -225,7 +225,8 @@ void odkryj_miny(int x, int y, int flagi, Pole **plansza){
 void sterowanie_akcja(int wybor, int x, int y, int poz_x, int poz_y, int flagi, Trudnosc &tryb, Pole **plansza){
     switch(wybor){
         case 1: {
-            if(plansza[poz_x][poz_y].czy_mina()){
+            if(plansza[poz_x][poz_y].czy_flaga());
+            else if(plansza[poz_x][poz_y].czy_mina() && !plansza[poz_x][poz_y].czy_flaga()){
                 odkryj_miny(x, y, flagi, plansza);
                 cout << "Trafiles na mine, przegrales!!!" << endl;
                 system("pause");
