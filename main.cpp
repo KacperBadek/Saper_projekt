@@ -13,6 +13,7 @@ void wybor_trudnosci(Trudnosc &tryb){
     cout << "1.Latwy(10 bomb, plansza 10x10)" << endl;
     cout << "2.Sredni(40 bomb, plansza 18x18)" << endl;
     cout << "3.Trudny(99 bomb, plansza 24x24)" << endl;
+    cout << "4.Niestandardowy(Podawane wartosci musza byc wieksze niz 0)" << endl;
     cout << endl;
     cout << "Twoj wybor: ";
     cin >> opcja;
@@ -23,6 +24,8 @@ void wybor_trudnosci(Trudnosc &tryb){
         case 2: tryb.sredni();
             break;
         case 3: tryb.trudny();
+            break;
+        case 4: tryb.niestandardowy();
             break;
         default: system("cls");
             cout << "Brak wybranej opcji!" << endl;

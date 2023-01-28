@@ -1,7 +1,3 @@
-//
-//
-//
-
 #include "Pole.h"
 
 Pole::Pole() {

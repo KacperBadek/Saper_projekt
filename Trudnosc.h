@@ -1,7 +1,3 @@
-//
-//
-//
-
 #ifndef MAIN_CPP_TRUDNOSC_H
 #define MAIN_CPP_TRUDNOSC_H
 
@@ -25,6 +21,7 @@ public:
     void latwy();
     void sredni();
     void trudny();
+    void niestandardowy();
 };
 
 

@@ -1,7 +1,3 @@
-//
-//
-//
-
 #ifndef MAIN_CPP_POLE_H
 #define MAIN_CPP_POLE_H
 
