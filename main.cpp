@@ -321,7 +321,6 @@ for(int i=0; i<tryb.get_x(); i++){
 generacja_planszy(tryb.get_x(), tryb.get_y(), plansza);
 generacja_min(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_min(), plansza);
 rysuj_plansze(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_flag(), plansza);
-czy_wygrana(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_min(), plansza);
 
 while(!czy_wygrana(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_min(), plansza)){
     sterowanie(tryb.get_x(), tryb.get_y(), tryb.get_ilosc_flag(), tryb, plansza);
