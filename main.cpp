@@ -86,7 +86,6 @@ void generacja_planszy(int x, int y, Pole **plansza){
 }
 
 void ustaw_miny(int x, int y, int poz_x, int poz_y, Pole **plansza){
-    if(!plansza[poz_x][poz_y].czy_mina()) {
         plansza[poz_x][poz_y].set_mina(true);
 
         for (int i = -1; i < 2; i++) {
@@ -99,7 +98,6 @@ void ustaw_miny(int x, int y, int poz_x, int poz_y, Pole **plansza){
                 plansza[poz_x + j][poz_y + i].set_wartosc(plansza[poz_x + j][poz_y + i].get_wartosc() + 1);
             }
         }
-    }
 }
 
 void generacja_min(int x, int y, int ilosc_min, Pole **plansza){
