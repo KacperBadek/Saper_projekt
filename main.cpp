@@ -114,6 +114,7 @@ void generacja_min(int x, int y, int ilosc_min, Pole **plansza){
 
         if(!plansza[poz_x][poz_y].czy_mina()){
             ustaw_miny(x, y, poz_x, poz_y, plansza);
+            plansza[poz_x][poz_y].set_wartosc(0);
             licznik++;
         }
     }
@@ -156,14 +157,7 @@ void rysuj_plansze(int x, int y, int flagi, Pole **plansza){
                     }
                     else cout << " ";
                 }
-                else{
-                    if(plansza[j][i].czy_mina()){
-                        SetConsoleTextAttribute(h, 4);
-                        cout << "*";
-                        SetConsoleTextAttribute(h, 7);
-                    }
-                    else cout << plansza[j][i].get_wartosc();
-                }
+                else cout << plansza[j][i].get_wartosc();
             }
             if(!plansza[j][i].czy_odkryte()){
                 if(plansza[j][i].czy_flaga()){
